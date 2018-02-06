@@ -1,0 +1,16 @@
+{
+  "presets": [
+    "react",
+    "stage-1",
+    ["env", { "targets": { "browsers": ["last 2 version"] }, "modules": false }]
+  ],
+
+  "plugins": ["transform-decorators-legacy"],
+
+  "env": {
+    "production": {
+      "presets": ["react-optimize"],
+      "plugins": ["transform-runtime", "lodash"]
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "ui-components",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development node scripts/start",
+    "build": "npm run clean && cross-env NODE_ENV=production webpack --progress --colors"
+  },
+  "repository": "https://github.com/DrBits/ui-components.git",
+  "author": "Alex Levanov <ilewanof@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-lodash": "^3.3.2",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-optimize": "^1.0.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-runtime": "^6.26.0",
+    "eslint": "^4.17.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-import-resolver-webpack": "^0.8.4",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.1",
+    "git-repo-name": "^0.6.0",
+    "prettier": "^1.10.2"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "classnames": "^2.2.5",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "jss": "^9.7.0",
+    "jss-preset-default": "^4.1.0",
+    "lodash": "^4.17.5",
+    "lodash-webpack-plugin": "^0.11.4",
+    "open-browser-webpack-plugin": "^0.0.5",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-jss": "^8.2.1",
+    "recompose": "^0.26.0",
+    "webpack": "3",
+    "webpack-bundle-analyzer": "^2.10.0",
+    "webpack-dev-server": "^2.11.1"
+  }
+}
