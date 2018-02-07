@@ -3,11 +3,12 @@ module.exports = {
   extends: ['airbnb'],
   env: {
     browser: true,
-    node: true
+    node: true,
   },
 
   rules: {
     'no-unused-expressions': 'off',
+    'no-console': 0,
     camelcase: 'off',
     'object-curly-newline': 'off',
     'spaced-comment': 'off',
@@ -18,9 +19,11 @@ module.exports = {
         objects: 'always-multiline',
         imports: 'always-multiline',
         exports: 'always-multiline',
-        functions: 'ignore'
-      }
+        functions: 'ignore',
+      },
     ],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
 
     'max-len': [
       'error',
@@ -30,20 +33,20 @@ module.exports = {
         ignoreComments: true,
         ignoreUrls: true,
         ignoreStrings: true,
-        ignoreRegExpLiterals: true
-      }
+        ignoreRegExpLiterals: true,
+      },
     ],
 
     'react/no-danger': 'off',
     'react/require-default-prop': 'off',
     'react/sort-comp': 'off',
     'react/no-array-index-key': 'off',
-    'react/no-typos': 'off'
+    'react/no-typos': 'off',
   },
 
   settings: {
     'import/resolver': {
-      webpack: {}
-    }
-  }
+      webpack: {},
+    },
+  },
 };

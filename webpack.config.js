@@ -31,7 +31,7 @@ const pluginBase = [
 ];
 
 const developmentPlugins = [
-  ...pluginBase,
+  //...pluginBase,
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NamedModulesPlugin(),
   new OpenBrowserPlugin({ url: `http://localhost:${SETTINGS.PORT}` }),
@@ -70,7 +70,7 @@ module.exports = {
   output: {
     path: SETTINGS.PUBLIC_PATH,
     filename: 'bundle.js',
-    publicPath: pagesBuild ? `/${getRepositoryName()}/` : '/',
+    publicPath: '/',
   },
 
   resolve: {
