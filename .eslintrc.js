@@ -12,6 +12,12 @@ module.exports = {
     camelcase: 'off',
     'object-curly-newline': 'off',
     'spaced-comment': 'off',
+    'one-var': [
+      'error',
+      {
+        let: 'never',
+      },
+    ],
     'comma-dangle': [
       'error',
       {
@@ -22,8 +28,8 @@ module.exports = {
         functions: 'ignore',
       },
     ],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
 
     'max-len': [
       'error',
