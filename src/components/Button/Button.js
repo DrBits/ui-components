@@ -4,6 +4,7 @@ import omit from 'lodash/omit';
 import pickBy from 'lodash/pickBy';
 import merge from 'lodash/merge';
 import pure from 'recompose/pure';
+import Spinner from '../Spinner';
 import { injectSheet } from '../theme';
 import {
   middleMixin,
@@ -148,7 +149,7 @@ import {
                 top: -outlineOffset,
                 bottom: -outlineOffset,
                 borderColor: colors.outline,
-                borderRadius: theme.button.borderRadius + (outlineOffset / 1.5),
+                borderRadius: theme.button.borderRadius + outlineOffset / 1.5,
               }),
           });
         return {
@@ -242,7 +243,7 @@ export default class Button extends Component {
       resultContainer,
       resultProps,
       resultChildren,
-      loading && <div color={theme.button.types[type].colors.default.loader} size={3} />
+      loading && <Spinner color={theme.button.types[type].colors.default.loader} size={3} />
     );
   }
 }
