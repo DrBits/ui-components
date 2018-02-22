@@ -14,6 +14,10 @@ import {
   focusSourceMixin,
 } from '../style/mixin';
 
+function getIconColor(colorsConfig, isDisabled) {
+  return (isDisabled && colorsConfig.disabled.icon) || colorsConfig.default.icon;
+}
+
 @pure
 @injectSheet(
   (theme) => {
@@ -26,7 +30,7 @@ import {
         letterSpacing: theme.button.letterSpacing,
         textTransform: theme.button.textTransform,
         textAlign: 'center',
-        curosr: 'pointer',
+        cursor: 'pointer',
         boxSizing: 'border-box',
         textDecoration: 'none !important',
         outline: 'none !important',
@@ -169,6 +173,24 @@ import {
   { name: 'Button' }
 )
 export default class Button extends Component {
+  get css() {
+    return this.props.classes;
+  }
+
+  renderIcon(icon) {
+    if (icon) {
+      const { theme, size, type, disabled } = this.props;
+      const iconProps = {
+        size: theme.button.sizes[size].icon,
+        color: getIconColor(theme.button.types[type].color, disabled),
+      };
+      const initialProps = icon.props || {};
+      const className = classnames(initialProps.className, this.css.icon);
+      const resultProps = { ...iconProps, ...initialProps, className };
+      return cloneElement(icon, resultProps);
+    }
+  }
+
   render() {
     const {
       icon,
@@ -193,21 +215,20 @@ export default class Button extends Component {
     const { css } = this.css;
     const iconLeft = iconPosition === 'left';
     const iconEl = this.renderIcon(icon);
-
     const resultStyle = {
       width,
       ...style,
     };
 
     const resultClassName = classnames(
-      css.button,
-      rounded && css.isRounded,
-      css[`type-${type}`],
-      css[`size-${size}`],
-      css[`iconPosition-${iconPosition}`],
+      this.css.button,
+      rounded && this.css.isRounded,
+      this.css[`type-${type}`],
+      this.css[`size-${size}`],
+      this.css[`iconPosition-${iconPosition}`],
       className,
       {
-        [css.block]: block,
+        [this.css.block]: block,
       }
     );
 
@@ -231,11 +252,11 @@ export default class Button extends Component {
     };
 
     const resultChildren = (
-      <span className={classnames(css.content, loading && css.isLoading)}>
+      <span className={classnames(this.css.content, loading && this.css.isLoading)}>
         {iconLeft && iconEl}
         {children}
         {!iconLeft && iconEl}
-        {overlay && cloneElement(overlay, { className: css.overlay })}
+        {overlay && cloneElement(overlay, { className: this.css.overlay })}
       </span>
     );
 
