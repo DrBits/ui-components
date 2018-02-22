@@ -1,10 +1,22 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
-
-import Button from 'components/Button';
+import 'babel-polyfill';
+import { Theme } from './components/theme';
+import Button from './components/Button';
 
 const App = () => (
-  <div><Button /></div>
+  <div>
+    <Theme>
+      <div>
+        <Button style={{ margin: 20 }} type="outline" rounded size="medium" buttonType="button">
+          Button
+        </Button>
+        <Button style={{ margin: 20 }} rounded size="medium" type="secondary">
+          Cancel
+        </Button>
+      </div>
+    </Theme>
+  </div>
 );
 
 export default hot(module)(App);
