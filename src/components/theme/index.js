@@ -1,7 +1,7 @@
 import React from 'react';
 import merge from 'lodash/merge';
 import { object } from 'prop-types';
-import { originalCreateJss } from 'jss';
+import { create as originalCreateJss } from 'jss';
 import originalInjectSheet, { createTheming, JssProvider, SheetsRegistry } from 'react-jss';
 import preset from 'jss-preset-default';
 import compose from 'recompose/compose';
@@ -27,9 +27,10 @@ export const createJss = (options = {}) =>
     ...preset(options),
     ...options,
   });
+
 export const createSheetsRegistry = () => new SheetsRegistry();
 
-export const globalSheetRegistry = createSheetsRegistry();
+export const globalSheetsRegistry = createSheetsRegistry();
 export const globalJss = createJss();
 export const createGenerateClassName = (themeId = 0) => (rule, sheet) => {
   const displayNamePrefix = sheet ? sheet.options[UI_CLASS_NAME_PREFIX] : '';
@@ -52,12 +53,13 @@ export const Theme = compose(
       let currTheme;
       let currParentTheme;
       const sheetsRegistry =
-        props.sheetRegistry || props[UI_SHEETS_REGISTRY] || globalSheetRegistry;
+        props.sheetsRegistry || props[UI_SHEETS_REGISTRY] || globalSheetsRegistry;
       const jss = props.jss || props[UI_JSS] || globalJss;
 
-      if (sheetsRegistry[UI_THEME_COUNTER] === null) sheetsRegistry[UI_THEME_COUNTER] = 0;
+      if (sheetsRegistry[UI_THEME_COUNTER] == null) sheetsRegistry[UI_THEME_COUNTER] = 0;
 
       const themeId = sheetsRegistry[UI_THEME_COUNTER] + 1;
+      console.log('theme', themeId);
       const generateClassName = props.generateClassName || createGenerateClassName(themeId);
 
       return {
@@ -70,6 +72,7 @@ export const Theme = compose(
             currParentTheme = parentTheme;
             currTheme = theme;
           }
+          console.log('jss', jss);
           return resultTheme;
         },
       };
