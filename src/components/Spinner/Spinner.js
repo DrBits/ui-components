@@ -20,9 +20,9 @@ const getKeyFrames = (delay = 0) => ({
 @pure
 @injectSheet(
   theme => ({
-    '@keyframes uiAnimate1': getKeyFrames(),
-    '@keyframes uiAnimate2': getKeyFrames(100 / (600 / 80)),
-    '@keyframes uiAnimate3': getKeyFrames(100 / (600 / 160)),
+    '@keyframes uiAnimateDot1': getKeyFrames(),
+    '@keyframes uiAnimateDot2': getKeyFrames(100 / (600 / 80)),
+    '@keyframes uiAnimateDot3': getKeyFrames(100 / (600 / 160)),
     spinner: {
       ...isolateMixin,
       ...middleMixin,
@@ -56,14 +56,14 @@ const getKeyFrames = (delay = 0) => ({
       animationFillMode: 'forwards',
       animationIterationCount: 'infinite',
       '&:nth-child(1)': {
-        animationName: 'uiAnimate1',
+        animationName: 'uiAnimateDot1',
       },
       '&:nth-child(2)': {
-        animationName: 'uiAnimate2',
+        animationName: 'uiAnimateDot2',
         margin: '0 1em',
       },
       '&:nth-child(3)': {
-        animationName: 'uiAnimate3',
+        animationName: 'uiAnimateDot3',
       },
     },
   }),
@@ -81,7 +81,6 @@ export default class Spinner extends Component {
       color,
       ...style,
     };
-
     return (
       <span
         style={resultStyle}
