@@ -9,10 +9,14 @@
 </head>
 
 <body>
-  <noscript>
-    Enable Javascript to see content on this page
-  </noscript>
   <div id="root"></div>
+  <script>
+    const link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.href = 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&subset=cyrillic'
+    const rootEl = document.querySelector('head') || document.body
+    rootEl.appendChild(link)
+  </script>
 </body>
 
 </html>
