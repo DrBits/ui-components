@@ -18,6 +18,10 @@ const loaders = [
     include: path.join(__dirname, 'src'),
     exclude: /node_modules/,
   },
+  {
+    test: /\.(svg|png|jpg|gif|woff|woff2|otf|ttf|eot)$/,
+    loader: 'file-loader',
+  },
 ];
 
 const pluginBase = [
@@ -62,10 +66,10 @@ module.exports = {
   entry: production
     ? path.join(__dirname, 'src/index')
     : [
-        `webpack-dev-server/client?http://localhost:${SETTINGS.PORT}`,
-        'webpack/hot/only-dev-server',
-        path.join(__dirname, './src/index'),
-      ],
+      `webpack-dev-server/client?http://localhost:${SETTINGS.PORT}`,
+      'webpack/hot/only-dev-server',
+      path.join(__dirname, './src/index'),
+    ],
 
   output: {
     path: SETTINGS.PUBLIC_PATH,
