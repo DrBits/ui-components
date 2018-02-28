@@ -61,7 +61,7 @@ function getIconColor(colorsConfig, isDisabled) {
       },
       isRounded: {
         '&$button, &:before, &:after': {
-          borderRadius: '9999px !important',
+          //borderRadius: '9999px !important',
         },
       },
       isLoading: {
@@ -135,10 +135,12 @@ function getIconColor(colorsConfig, isDisabled) {
       ['primary', 'secondary', 'outline', 'flat', 'danger'].reduce((result, type) => {
         const conf = theme.button.types[type];
         const offset = conf.outlineOffset || 0;
+        const shadow = conf.boxShadow || 'none';
 
-        const setThemeForSelector = (colors, outlineOffset) =>
+        const setThemeForSelector = (colors, outlineOffset, boxShadow) =>
           pickBy({
             background: colors.background,
+            boxShadow,
             '&, & *': {
               color: colors.text,
             },
@@ -163,7 +165,7 @@ function getIconColor(colorsConfig, isDisabled) {
             '&:hover': setThemeForSelector(conf.colors.hover, offset),
             '&[disabled]': setThemeForSelector(conf.colors.disabled, offset),
             ...focusSourceMixin('other', '&:focus', setThemeForSelector(conf.colors.focus, offset)),
-            ...setThemeForSelector(conf.colors.default, offset),
+            ...setThemeForSelector(conf.colors.default, offset, shadow),
           },
         };
       }, {})
@@ -189,6 +191,7 @@ export default class Button extends Component {
       const resultProps = { ...iconProps, ...initialProps, className };
       return cloneElement(icon, resultProps);
     }
+    return false;
   }
 
   render() {
