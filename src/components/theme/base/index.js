@@ -1,5 +1,5 @@
 import merge from 'lodash/merge';
-import { fade, darken } from '../../utils/colors';
+import { fade, darken, lighten } from '../../utils/colors';
 import colorsConfig from './colors';
 
 const fontFamilies = {
@@ -17,7 +17,7 @@ export function createTheme(config) {
         fontWeight: 500,
         letterSpacing: 1.3,
         textTransform: 'uppercase',
-        borderRadius: 1,
+        borderRadius: '2px',
         mobile: {
           sizes: {
             medium: {
@@ -43,6 +43,8 @@ export function createTheme(config) {
         types: {
           primary: {
             outlineOffset: 3,
+            boxShadow:
+              '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)',
             colors: {
               default: {
                 text: colors.light,
@@ -55,6 +57,7 @@ export function createTheme(config) {
               },
               active: {
                 background: darken(colors.primary, 0.2),
+                boxShadow: '5px 5px 10px rgba(0,0,0,.35)',
               },
               disabled: {
                 text: fade(colors.primary, 0.1),
@@ -95,16 +98,16 @@ export function createTheme(config) {
                 text: colors.dark,
                 icon: colors.primary,
                 loader: colors.primary,
-                background: colors.controls.grey.background,
+                background: colors.secondary,
               },
               hover: {
-                text: colors.primary,
-                background: fade(colors.controls.grey.background, 0.2),
+                text: colors.dark,
+                background: lighten(colors.secondary, 0.1),
               },
               active: {
-                text: darken(colors.primary, 0.2),
-                icon: darken(colors.primary, 0.2),
-                background: fade(colors.controls.grey.outline, 0.2),
+                text: darken(colors.dark, 0.2),
+                icon: darken(colors.dark, 0.2),
+                background: fade(colors.secondary, 0.4),
               },
               disabled: {
                 text: colors.controls.grey.outline,
