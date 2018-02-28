@@ -59,7 +59,6 @@ export const Theme = compose(
       if (sheetsRegistry[UI_THEME_COUNTER] == null) sheetsRegistry[UI_THEME_COUNTER] = 0;
 
       const themeId = sheetsRegistry[UI_THEME_COUNTER] + 1;
-      console.log('theme', themeId);
       const generateClassName = props.generateClassName || createGenerateClassName(themeId);
 
       return {
@@ -72,7 +71,6 @@ export const Theme = compose(
             currParentTheme = parentTheme;
             currTheme = theme;
           }
-          console.log('jss', jss);
           return resultTheme;
         },
       };
