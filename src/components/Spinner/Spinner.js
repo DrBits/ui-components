@@ -10,7 +10,7 @@ const getKeyFrames = (delay = 0) => ({
     transform: 'scale(1) translate3d(0, 0, 0)',
   },
   [`${20 + delay}%`]: {
-    transform: 'scale(1) translate(0, 100%, 0)',
+    transform: 'scale(1) translate3d(0, 100%, 0)',
   },
   [`${80 + delay}%`]: {
     transform: 'scale(1) translate3d(0, 0, 0)',
