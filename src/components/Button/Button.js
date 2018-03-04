@@ -134,7 +134,7 @@ function getIconColor(colorsConfig, isDisabled) {
       css,
       ['primary', 'secondary', 'outline', 'flat', 'danger'].reduce((result, type) => {
         const conf = theme.button.types[type];
-        const offset = conf.outlineOffset || 0;
+        const offset = (conf.outlineOffset && conf.outlineOffset / 1.5) || 0;
         const shadow = conf.boxShadow || 'none';
 
         const setThemeForSelector = (colors, outlineOffset, boxShadow) =>
@@ -155,7 +155,7 @@ function getIconColor(colorsConfig, isDisabled) {
                 top: -outlineOffset,
                 bottom: -outlineOffset,
                 borderColor: colors.outline,
-                borderRadius: theme.button.borderRadius + outlineOffset / 1.5,
+                borderRadius: theme.button.borderRadius + outlineOffset,
               }),
           });
         return {
@@ -215,7 +215,7 @@ export default class Button extends Component {
       theme,
       ...other
     } = omit(this.props, 'classes');
-    const { css } = this.css;
+
     const iconLeft = iconPosition === 'left';
     const iconEl = this.renderIcon(icon);
     const resultStyle = {

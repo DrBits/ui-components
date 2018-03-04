@@ -5,10 +5,13 @@ function clamp(value, min, max) {
 }
 
 function convertHexToRGB(color) {
-  if (color.length === 4) {
+  let convertColor = color;
+  if (convertColor.length === 4) {
     let extendedColor = '#';
-    for (let i = 1; i < color.length; i++) extendedColor += color.charAt(i) + color.charAt(i);
-    color = extendedColor;
+    for (let i = 1; i < convertColor.length; i += 1) {
+      extendedColor += convertColor.charAt(i) + convertColor.charAt(i);
+    }
+    convertColor = extendedColor;
   }
 
   const values = {
@@ -23,42 +26,52 @@ function convertHexToRGB(color) {
 function decomposeColor(color) {
   if (color.charAt(0) === '#') return decomposeColor(convertHexToRGB(color));
 
-  color = color.replace(/\s/g, '');
-  const marker = color.indexOf('(');
+  const newColor = color.replace(/\s/g, '');
+  const marker = newColor.indexOf('(');
   if (marker === -1) {
-    throw new Error(`Rambler UI: The ${color} color was not parsed correctly,
-      because it has an unsupported format (color name or RGB %). This may cause issues in component rendering.`);
+    throw new Error(`The ${newColor} color was not parsed correctly`);
   }
 
-  const type = color.substring(0, marker);
-  let values = color.substring(marker + 1, color.length - 1).split(',');
+  const type = newColor.substring(0, marker);
+  let values = newColor.substring(marker + 1, newColor.length - 1).split(',');
   values = values.map(value => parseFloat(value));
 
   return { type, values };
 }
 
 function getLuminance(color) {
-  color = decomposeColor(color);
+  const newColor = decomposeColor(color);
 
-  if (color.type.indexOf('rgb') > -1) {
-    const rgb = color.values.map((val) => {
-      val /= 255; // normalized
-      return val <= 0.03928 ? val / 12.92 : Math.pow((val + 0.055) / 1.055, 2.4);
+  if (newColor.type.indexOf('rgb') > -1) {
+    const rgb = newColor.values.map((val) => {
+      const value = val / 255;
+      const recalculateValueOne = value / 12.92;
+      let recalculateValueTwo = value / 1.055;
+      recalculateValueTwo += recalculateValueTwo + 0.055;
+      return value <= 0.03928 ? recalculateValueOne : recalculateValueTwo ** 2.4;
     });
-    return Number((0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]).toFixed(3));
-  } else if (color.type.indexOf('hsl') > -1) {
-    return color.values[2] / 100;
+    const rgb0 = rgb[0] * 0.2126;
+    const rgb1 = rgb[1] * 0.7152;
+    const rgb2 = rgb[2] * 0.0722;
+    let amounRgb = rgb0 + rgb1;
+    amounRgb += rgb2;
+    return Number(amounRgb.toFixed(3));
+  } else if (newColor.type.indexOf('hsl') > -1) {
+    return newColor.values[2] / 100;
   }
+  return null;
 }
 
 function convertColorToString(color) {
   const { type, values } = color;
 
-  if (type.indexOf('rgb') > -1) for (let i = 0; i < 3; i++) values[i] = parseInt(values[i]);
+  if (type.indexOf('rgb') > -1) for (let i = 0; i < 3; i += 1) values[i] = parseInt(values[i], 10);
 
   let colorString;
 
-  if (type.indexOf('hsl') > -1) { colorString = `${color.type}(${values[0]}, ${values[1]}%, ${values[2]}%`; } else colorString = `${color.type}(${values[0]}, ${values[1]}, ${values[2]}`;
+  if (type.indexOf('hsl') > -1) {
+    colorString = `${color.type}(${values[0]}, ${values[1]}%, ${values[2]}%`;
+  } else colorString = `${color.type}(${values[0]}, ${values[1]}, ${values[2]}`;
 
   if (values.length === 4) colorString += `, ${color.values[3].toFixed(2)})`;
   else colorString += ')';
@@ -71,23 +84,30 @@ export function normalize(color) {
 }
 
 export function darken(color, coefficient) {
-  color = decomposeColor(color);
-  coefficient = clamp(coefficient, 0, 1);
+  const newDecomposeColor = decomposeColor(color);
+  const newCoefficient = clamp(coefficient, 0, 1);
 
-  if (color.type.indexOf('hsl') > -1) color.values[2] *= 1 - coefficient;
-  else if (color.type.indexOf('rgb') > -1) { for (let i = 0; i < 3; i++) color.values[i] *= 1 - coefficient; }
+  if (newDecomposeColor.type.indexOf('hsl') > -1) newDecomposeColor.values[2] *= 1 - newCoefficient;
+  else if (newDecomposeColor.type.indexOf('rgb') > -1) {
+    for (let i = 0; i < 3; i += 1) newDecomposeColor.values[i] *= 1 - newCoefficient;
+  }
 
-  return convertColorToString(color);
+  return convertColorToString(newDecomposeColor);
 }
 
 export function lighten(color, coefficient) {
-  color = decomposeColor(color);
-  coefficient = clamp(coefficient, 0, 1);
+  const newDecomposeColor = decomposeColor(color);
+  const newCoefficient = clamp(coefficient, 0, 1);
 
-  if (color.type.indexOf('hsl') > -1) color.values[2] += (100 - color.values[2]) * coefficient;
-  else if (color.type.indexOf('rgb') > -1) { for (let i = 0; i < 3; i++) color.values[i] += (255 - color.values[i]) * coefficient; }
+  if (newDecomposeColor.type.indexOf('hsl') > -1) {
+    newDecomposeColor.values[2] += (100 - newDecomposeColor.values[2]) * newCoefficient;
+  } else if (newDecomposeColor.type.indexOf('rgb') > -1) {
+    for (let i = 0; i < 3; i += 1) {
+      newDecomposeColor.values[i] += (255 - newDecomposeColor.values[i]) * newCoefficient;
+    }
+  }
 
-  return convertColorToString(color);
+  return convertColorToString(newDecomposeColor);
 }
 
 export function emphasize(color, coefficient = 0.15) {
@@ -95,11 +115,13 @@ export function emphasize(color, coefficient = 0.15) {
 }
 
 export function fade(color, value) {
-  color = decomposeColor(color);
-  value = clamp(value, 0, 1);
+  const newDecomposeColor = decomposeColor(color);
+  const newValue = clamp(value, 0, 1);
 
-  if (color.type === 'rgb' || color.type === 'hsl') color.type += 'a';
-  color.values[3] = value;
+  if (newDecomposeColor.type === 'rgb' || newDecomposeColor.type === 'hsl') {
+    newDecomposeColor.type += 'a';
+  }
+  newDecomposeColor.values[3] = newValue;
 
-  return convertColorToString(color);
+  return convertColorToString(newDecomposeColor);
 }

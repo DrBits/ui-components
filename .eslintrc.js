@@ -45,6 +45,7 @@ module.exports = {
 
     'react/no-danger': 'off',
     'react/require-default-prop': 'off',
+    'react/prop-types': 'off',
     'react/sort-comp': 'off',
     'react/no-array-index-key': 'off',
     'react/no-typos': 'off',
