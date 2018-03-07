@@ -8,23 +8,16 @@ const App = () => (
   <div>
     <Theme>
       <div>
-        <Button
-          style={{ margin: 20 }}
-          type="outline"
-          rounded
-          size="medium"
-          buttonType="button"
-          loading
-        >
+        <Button type="outline" rounded size="medium" buttonType="button">
           Button
         </Button>
-        <Button style={{ margin: 20 }} rounded size="medium" type="primary">
+        <Button rounded size="medium" type="primary">
           Cancel
         </Button>
         <Button type="secondary" size="medium" rounded>
           Send
         </Button>
-        <Button style={{ margin: 20 }} type="flat" size="medium" rounded>
+        <Button type="flat" size="medium" rounded>
           Send
         </Button>
       </div>
