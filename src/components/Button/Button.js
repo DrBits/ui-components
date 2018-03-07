@@ -38,6 +38,7 @@ function getIconColor(colorsConfig, isDisabled) {
         display: 'inline-block',
         border: 'none',
         userSelect: 'none',
+        margin: 8,
         borderRadius: theme.button.borderRadius,
         '&, & *': { transition: 'background-color .2s, border .2s, box-shadow .2s' },
         '&:before, &:after': {
@@ -89,7 +90,7 @@ function getIconColor(colorsConfig, isDisabled) {
         '& $content': {
           height: theme.button.sizes.medium.height,
           lineHeight: `${theme.button.sizes.medium.height}px`,
-          padding: '0 20px',
+          padding: '0 16px',
         },
       },
       'size-small': {
