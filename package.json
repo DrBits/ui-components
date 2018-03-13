@@ -5,11 +5,17 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development node scripts/start",
     "build": "npm run clean && cross-env NODE_ENV=production webpack --progress --colors",
-    "clean": "rimraf public"
+    "clean": "rimraf public",
+    "lint:js": "eslint ./src",
+    "lint-staged": "lint-staged"
   },
   "repository": "https://github.com/DrBits/ui-components.git",
   "author": "Alex Levanov <ilewanof@gmail.com>",
   "license": "MIT",
+  "lint-staged": {
+    "*.js": "eslint"
+  },
+  "pre-commit": "lint-staged",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
@@ -33,6 +39,8 @@
     "file-loader": "^1.1.8",
     "git-repo-name": "^0.6.0",
     "html-webpack-plugin": "^2.30.1",
+    "lint-staged": "^7.0.0",
+    "pre-commit": "^1.2.2",
     "prettier": "^1.10.2",
     "rimraf": "^2.6.2"
   },
